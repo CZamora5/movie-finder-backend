@@ -1,10 +1,11 @@
 import express from 'express';
 import cors from 'cors';
+import movieRoutes from './routes/movie.routes.js';
 
 export class App {
   ROUTE_NOT_FOUND = 'Route does not exist on the server';
 
-  constructor(port = process.env.PORT || 3000) {
+  constructor(port = process.env.PORT) {
     this.port = port;
     this.app = express();
     this.middleware();
@@ -25,6 +26,7 @@ export class App {
   }
 
   routes() {
+    this.app.use('/movies', movieRoutes);
     this.app.get('/', (req, res) => (
       res.status(200).send({message: 'Welcome to the moviesdb API v1.0'})
     ));
