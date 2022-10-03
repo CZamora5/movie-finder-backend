@@ -41,3 +41,31 @@ CREATE TABLE IF NOT EXISTS person (
   updated_at           TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (id)
 ) AUTO_INCREMENT = 1;
+
+CREATE TABLE IF NOT EXISTS movie_genre (
+    movie_id    BIGINT UNSIGNED NOT NULL,
+    genre_id    BIGINT UNSIGNED NOT NULL,
+    FOREIGN KEY (movie_id)
+                REFERENCES movie (id)
+                ON DELETE CASCADE
+                ON UPDATE CASCADE,
+    FOREIGN KEY (genre_id)
+                REFERENCES genre (id)
+                ON DELETE CASCADE
+                ON UPDATE CASCADE,
+    PRIMARY KEY (movie_id, genre_id)
+);
+
+CREATE TABLE IF NOT EXISTS movie_person (
+    movie_id    BIGINT UNSIGNED NOT NULL,
+    person_id   BIGINT UNSIGNED NOT NULL,
+    FOREIGN KEY (movie_id)
+                REFERENCES movie (id)
+                ON DELETE CASCADE
+                ON UPDATE CASCADE,
+    FOREIGN KEY (person_id)
+                REFERENCES person (id)
+                ON DELETE CASCADE
+                ON UPDATE CASCADE,
+    PRIMARY KEY (movie_id, person_id)
+);
